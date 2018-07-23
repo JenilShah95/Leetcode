@@ -1,0 +1,45 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+Example 1:
+
+Input: num1 = "2", num2 = "3"
+Output: "6"
+Example 2:
+
+Input: num1 = "123", num2 = "456"
+Output: "56088"
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+class Solution {
+    public String multiply(String num1, String num2) {
+        // char str1[] = num1.toCharArray();
+        // char str2[] = num2.toCharArray();
+        int[] str = new int[num1.length()+num2.length()];
+        for(int i=num1.length()-1;i>=0;i--){
+            int a = num1.charAt(i) - '0';
+            for(int j=num2.length()-1;j>=0;j--){
+                int b= num2.charAt(j) - '0';
+                str[i+j+1] += a*b;
+            }
+        }
+        int carry=0;
+        for(int i = str.length-1;i>=0;i--){
+            int temp = (carry + str[i])%10;
+            carry = (carry + str[i])/10;
+            str[i] = temp;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for(int num:str){
+            sb.append(num);
+        }
+        while(sb.length()!=0 && sb.charAt(0)=='0') sb.deleteCharAt(0);
+        return sb.length() == 0 ? "0" : sb.toString();
+    }
+}
