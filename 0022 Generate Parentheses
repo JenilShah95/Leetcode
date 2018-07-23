@@ -1,0 +1,47 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+For example, given n = 3, a solution set is:
+
+[
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        ArrayList<String> list = new ArrayList<>();
+        char[] str = new char[n*2];
+        return generateParenthesis(str,list,n,n,0);
+    }
+    public List<String> generateParenthesis(char[] str,ArrayList<String> list,int left,int right,int count) {
+        if(left<0 || right < left){
+            return;
+        }
+        
+        if(left ==0 && right == 0){
+            String s = String.copyValueOf(str);
+            list.add(s);
+        }
+        else{
+            if(left > 0){
+                str[count] ='(';
+                generateParenthesis(str,list,left-1,right,count+1);
+            }
+            if(right > left){
+                str[count] =')';
+                generateParenthesis(str,list,left,right-1,count+1);                
+            }
+        }
+        return list;
+    }
+    
+}
