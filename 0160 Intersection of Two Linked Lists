@@ -1,0 +1,70 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Write a program to find the node at which the intersection of two singly linked lists begins.
+
+
+For example, the following two linked lists:
+
+A:          a1 → a2
+                   ↘
+                     c1 → c2 → c3
+                   ↗            
+B:     b1 → b2 → b3
+begin to intersect at node c1.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null){
+            return null;
+        }
+        int lenA = size(headA);
+        int lenB = size(headB);
+        // ArrayList<Integer> list = new ArrayList<>();
+        if(lenA>lenB){
+            headA = shift(headA,lenA-lenB);
+        }
+        else{
+            headB = shift(headB,lenB-lenA);
+        }
+        while(headA!=null){
+            if(headA.val == headB.val){
+                return headA;
+            }
+            headA=headA.next;
+            headB=headB.next;
+        }
+        return null;
+    }
+    
+    public int size(ListNode head){
+        int len=0;
+        ListNode curr=head;
+        while(curr!=null){
+            len++;
+            curr=curr.next;
+        }
+        return len;
+    }
+    
+    public ListNode shift(ListNode node, int number){
+        while(number!=0){
+            node=node.next;
+            number--;
+        }
+        return node;
+    }
+}
