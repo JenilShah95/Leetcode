@@ -1,0 +1,52 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
+
+Example 1:
+
+Input: 121
+Output: true
+Example 2:
+
+Input: -121
+Output: false
+Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+Example 3:
+
+Input: 10
+Output: false
+Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+class Solution {
+    public boolean isPalindrome(int x) {
+        
+        try{
+            int remainder;
+            String reverse="";
+            int number =x;
+
+            if(x<0){
+                return false;
+            }
+
+            if(x==0){
+                return true;    
+            }
+
+            while(number!=0){
+                remainder = number%10;
+                reverse += remainder;
+                number=number/10;
+            }
+
+            return Integer.parseInt(reverse) == x;
+
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+}
