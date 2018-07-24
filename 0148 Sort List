@@ -1,0 +1,49 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Sort a linked list in O(n log n) time using constant space complexity.
+
+Example 1:
+
+Input: 4->2->1->3
+Output: 1->2->3->4
+Example 2:
+
+Input: -1->5->3->4->0
+Output: -1->0->3->4->5
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode sortList(ListNode head) {
+        ArrayList<Integer> list = new ArrayList<>();
+        ListNode curr = head;
+        if(head==null){
+            return head;
+        }
+        while(curr!=null){
+            list.add(curr.val);
+            curr=curr.next;
+        }
+        Collections.sort(list);
+        ListNode sorted = new ListNode(0);
+        ListNode sort = sorted;
+        
+        for(int i=0;i<list.size();i++){
+            ListNode s = new ListNode(list.get(i));
+            sort.next = s;
+            sort = sort.next;
+        }
+    
+        return sorted.next;
+    }
+}
