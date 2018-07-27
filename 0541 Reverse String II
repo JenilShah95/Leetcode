@@ -1,0 +1,40 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given a string and an integer k, you need to reverse the first k characters for every 2k characters counting from the start of the string. If there are less than k characters left, reverse all of them. If there are less than 2k but greater than or equal to k characters, then reverse the first k characters and left the other as original.
+Example:
+Input: s = "abcdefg", k = 2
+Output: "bacdfeg"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+class Solution {
+    public String reverseStr(String s, int k) {
+        String S = "";
+        for(int i=0;i<s.length();i+=2*k){
+            int m=i;
+            System.out.println(m);
+            int j=0;
+            String sb ="";
+            while(j<k && m<s.length()){
+                sb+=s.charAt(m);
+                m++;
+                j++;
+            }
+            sb = reverse(sb);
+            while(j<2*k && m<s.length()){
+                sb+=s.charAt(m);
+                m++;
+                j++;                
+            }
+            S+=sb;
+        }
+        return S;
+    }
+    public String  reverse(String S) {
+        StringBuilder sb = new StringBuilder(S);
+        return sb.reverse().toString();
+        // S=sb.reverse().toString();
+    }
+}
