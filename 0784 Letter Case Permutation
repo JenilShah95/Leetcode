@@ -1,0 +1,41 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.
+Return a list of all possible strings we could create.
+
+Examples:
+Input: S = "a1b2"
+Output: ["a1b2", "a1B2", "A1b2", "A1B2"]
+
+Input: S = "3z4"
+Output: ["3z4", "3Z4"]
+
+Input: S = "12345"
+Output: ["12345"]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+class Solution {
+    public List<String> letterCasePermutation(String S) {
+        List<String> list = new ArrayList<String>();
+        list.add(S);
+        int i=0;
+        while(i<S.length()){
+            if(Character.isLetter(S.charAt(i))){
+                List<String> l1 = new ArrayList<>();
+                for(String str : list){
+                    StringBuilder sb = new StringBuilder(str);
+                    sb.setCharAt(i,Character.toLowerCase(S.charAt(i)));
+                    l1.add(sb.toString());
+                    sb.setCharAt(i,Character.toUpperCase(S.charAt(i)));
+                    l1.add(sb.toString());                    
+                }
+                list = l1;
+                
+            }
+            i++;
+        }
+        return list;
+    }
+}
