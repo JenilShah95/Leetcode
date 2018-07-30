@@ -1,0 +1,70 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given two strings S and T, return if they are equal when both are typed into empty text editors. # means a backspace character.
+
+Example 1:
+
+Input: S = "ab#c", T = "ad#c"
+Output: true
+Explanation: Both S and T become "ac".
+Example 2:
+
+Input: S = "ab##", T = "c#d#"
+Output: true
+Explanation: Both S and T become "".
+Example 3:
+
+Input: S = "a##c", T = "#a#c"
+Output: true
+Explanation: Both S and T become "c".
+Example 4:
+
+Input: S = "a#c", T = "b"
+Output: false
+Explanation: S becomes "c" while T becomes "b".
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+class Solution {
+    public boolean backspaceCompare(String S, String T) {
+        Stack<Character> s = new Stack<>();
+        Stack<Character> t = new Stack<>();
+        for(char a: S.toCharArray()) {
+            if(a=='#') {
+                if(!s.isEmpty()) {
+                    s.pop();
+                }
+            }
+            else{
+                s.push(a);
+            }
+        }
+        for(char b: T.toCharArray()) {
+            if(b=='#') {
+                if(!t.isEmpty()) {
+                    t.pop();
+                }
+            }
+            else{
+                t.push(b);
+            }
+        }
+        System.out.println(s);
+        System.out.println(t);
+        while(!s.isEmpty() && !t.isEmpty()) {
+            char a = s.pop();
+            char b = t.pop();
+            if(a != b) {
+                return false;
+            }
+        }
+        if(s.isEmpty() && t.isEmpty()) {
+            return true;
+        }
+        if(!s.isEmpty() || !t.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+}
