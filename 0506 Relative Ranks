@@ -1,0 +1,50 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given scores of N athletes, find their relative ranks and the people with the top three highest scores, who will be awarded medals:
+"Gold Medal", "Silver Medal" and "Bronze Medal".
+
+Example 1:
+Input: [5, 4, 3, 2, 1]
+Output: ["Gold Medal", "Silver Medal", "Bronze Medal", "4", "5"]
+Explanation: The first three athletes got the top three highest scores, so they got "Gold Medal", "Silver Medal" and "Bronze Medal". 
+For the left two athletes, you just need to output their relative ranks according to their scores.
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+class Solution {
+    public String[] findRelativeRanks(int[] nums) {
+        if(nums.length==1) {
+            return new String[] {"Gold Medal"};
+        }
+
+        TreeMap<Integer,Integer> map = new TreeMap<>(Collections.reverseOrder());
+        for(int i=0;i<nums.length;i++) {
+            map.put(nums[i],i);
+        }
+        // System.out.print(map);
+        String[] s = new String[nums.length];
+        
+        int count=1;
+        for(int key:map.keySet()) {
+            if(count==1){
+                s[map.get(key)] = "Gold Medal";
+                count++;
+                continue;
+            }   
+            if(count==2){
+                s[map.get(key)] = "Silver Medal";
+                count++;
+                continue;
+            }   
+            if(count==3){
+                s[map.get(key)] = "Bronze Medal";
+                count++;
+                continue;
+            }   
+            s[map.get(key)] = Integer.toString(count);
+            count++;
+        }
+        return s;
+    }
+}
