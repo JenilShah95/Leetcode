@@ -1,0 +1,79 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given a binary search tree (BST) with duplicates, find all the mode(s) (the most frequently occurred element) in the given BST.
+
+Assume a BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys less than or equal to the node's key.
+The right subtree of a node contains only nodes with keys greater than or equal to the node's key.
+Both the left and right subtrees must also be binary search trees.
+ 
+
+For example:
+Given BST [1,null,2,2],
+
+   1
+    \
+     2
+    /
+   2
+ 
+
+return [2].
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int[] n;
+    ArrayList<Integer> list = new ArrayList<>();
+    public int[] findMode(TreeNode root) {
+        if(root==null){
+            return new int[]{};
+        }
+        ArrayList<Integer> list1 = new ArrayList<>();
+        TreeMap<Integer,Integer>map = new TreeMap<>(Collections.reverseOrder());
+        inorder(root);
+        for(int i : list){
+            if(map.containsKey(i)){
+                map.put(i,map.get(i)+1);
+                continue;
+            }
+            map.put(i,1);
+        }
+        int max = Integer.MIN_VALUE;
+        for(int key:map.keySet()){
+            if(map.get(key) > max){
+                max=map.get(key);
+            }
+        }
+        for(int key:map.keySet()){
+            if(map.get(key)==max){
+                list1.add(key);
+            }
+        }
+        n = new int[list1.size()];
+        for(int i=0;i<list1.size();i++){
+            n[i]=list1.get(list1.size()-1-i);
+        }
+        return n;
+    }
+    public void inorder(TreeNode root){
+        
+        if(root == null){
+            return;
+        }
+        inorder(root.left);
+        list.add(root.val);
+        inorder(root.right);
+    }
+}
