@@ -1,0 +1,33 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given two arrays, write a function to compute their intersection.
+
+Example:
+Given nums1 = [1, 2, 2, 1], nums2 = [2, 2], return [2].
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        if(nums1.length==0 || nums2.length==0){
+            return new int[]{};
+        }
+        HashSet<Integer> set = new HashSet<>();
+        HashSet<Integer> intersection = new HashSet<>();
+        for(int i:nums1){
+            set.add(i);
+        }
+        for(int j:nums2){
+            if(set.contains(j)){
+                intersection.add(j);
+            }
+        }
+        int[] a = new int[intersection.size()];
+        int i=0;
+        for(int num:intersection){
+            a[i++]=num;
+        }
+        return a;
+    }
+}
