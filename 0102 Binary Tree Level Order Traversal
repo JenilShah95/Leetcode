@@ -1,0 +1,61 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+
+For example:
+Given binary tree [3,9,20,null,null,15,7],
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return its level order traversal as:
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private int j=0; 
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        int h = getheight(root);
+        for(int i=0;i<h;i++){
+            result.add(new ArrayList<Integer>());
+        }
+        for(int i=1;i<=h;i++){
+            j=i-1;
+            printgivenlevel(root,i,result);
+        }
+        return result;
+    }
+    public int getheight(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        return Math.max(getheight(root.left),getheight(root.right))+1;
+    }
+    public void printgivenlevel(TreeNode root,int i, List<List<Integer>> l){
+        if(root == null) return;
+        if(i==1){
+            l.get(j).add(root.val);
+        }
+        if(i>1){
+            printgivenlevel(root.left,i-1,l);
+            printgivenlevel(root.right,i-1,l);
+        }
+    }
+}
