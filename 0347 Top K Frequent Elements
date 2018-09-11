@@ -1,0 +1,44 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given a non-empty array of integers, return the k most frequent elements.
+
+Example 1:
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+class Solution {
+    Integer index;
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        ArrayList<Integer> result = new ArrayList<>();
+        Map<Integer,Integer> count = new HashMap<>();
+        TreeMap<Integer,List<Integer>> sorted = new TreeMap<>();
+        int countk=0;
+        for(int i : nums){
+            if(!count.containsKey(i)){
+                count.put(i,0);
+            }
+            count.put(i,count.get(i)+1);
+        }
+        
+        for(int key : count.keySet()){
+            int freq = count.get(key);
+            if(!sorted.containsKey(freq)){
+                sorted.put(freq,new ArrayList<Integer>());
+            }
+            sorted.get(freq).add(key);
+        }
+        
+        while(result.size() < k){
+            result.addAll(sorted.pollLastEntry().getValue());
+        }
+        return result;
+    }
+}
