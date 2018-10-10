@@ -1,0 +1,38 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
+
+
+Example:
+
+Input: "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        
+        String[] letters = {"0","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        List<String> result = new ArrayList<String>();
+        if(digits.length()==0){
+            return result;
+        }
+        StringBuilder sb = new StringBuilder();
+        dfs(result, sb, letters, digits, 0);
+        return result;
+    }
+    public void dfs(List<String> result, StringBuilder sb, String[] letters, String digits, int start){
+        if(sb.length() == digits.length()){
+            result.add(sb.toString());
+        }
+        for(int i=start;i<digits.length();i++){
+            for(Character ch : letters[digits.charAt(i)-'0'].toCharArray()){
+                sb.append(ch.toString());
+                dfs(result,sb,letters,digits,i+1);
+                sb.deleteCharAt(sb.length()-1);
+            }
+        }
+    }
+}
